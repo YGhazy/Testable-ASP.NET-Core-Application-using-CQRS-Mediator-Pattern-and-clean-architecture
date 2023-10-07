@@ -1,5 +1,6 @@
 ﻿@page "/product/create"
 @page "/product/edit/{id:int}"
+@using Blazor.Application.Features.Products.Queries;
 @inject ICategoryRepository _categoryRepository
 @inject IProductRepository _productRepository
 @inject NavigationManager _navigationManager

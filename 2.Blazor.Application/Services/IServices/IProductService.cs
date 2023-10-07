@@ -1,5 +1,6 @@
 ﻿using Blazor.Application.Common;
 using Blazor.Application.DTOs;
+using Blazor.Application.Features.Products.Queries;
 
 namespace Blazor.Application.Services.IServices
 {

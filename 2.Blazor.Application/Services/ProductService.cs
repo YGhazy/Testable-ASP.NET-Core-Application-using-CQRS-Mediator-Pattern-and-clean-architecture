@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Blazor.Application.Common;
 using Blazor.Application.DTOs;
+using Blazor.Application.Features.Products.Queries;
 using Blazor.Application.IRepository;
 using Blazor.Application.Services.IServices;
 using Blazor.Domain.Common;

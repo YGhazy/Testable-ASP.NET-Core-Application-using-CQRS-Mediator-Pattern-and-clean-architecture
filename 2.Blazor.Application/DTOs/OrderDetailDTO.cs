@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Blazor.Application.Features.Products.Queries;
+using System.ComponentModel.DataAnnotations;
 
 namespace Blazor.Application.DTOs
 {

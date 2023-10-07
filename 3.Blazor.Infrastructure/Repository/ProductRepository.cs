@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Blazor.Application.DTOs;
+using Blazor.Application.Features.Products.Queries;
 using Blazor.Application.IRepository;
 using Blazor.Domain.Entities;
 using Blazor.Infrastructure.Data;
@@ -71,6 +71,11 @@ namespace Blazor.Application.Repository
             }
             return objDTO;
 
+        }
+
+        public async Task<bool> IsProductUnique(string name)
+        {
+            return await _db.Products.AnyAsync(q => q.Name == name) == false;
         }
     }
 }

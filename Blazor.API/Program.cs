@@ -16,10 +16,14 @@ using Blazor.Application.Services;
 using Blazor.Application.Unit_of_work;
 using Blazor.Domain.Common;
 using Blazor.Application.Helper;
+using MediatR;
+using System.Reflection;
+using Blazor.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -83,7 +87,7 @@ builder.Services.AddAuthentication(opt =>
 });
 
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
