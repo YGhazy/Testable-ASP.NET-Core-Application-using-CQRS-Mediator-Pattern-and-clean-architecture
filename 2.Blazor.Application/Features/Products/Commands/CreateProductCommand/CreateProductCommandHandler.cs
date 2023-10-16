@@ -18,17 +18,19 @@ namespace Blazor.Application.Features.Products.Commands.CreateProductCommand
     {
         private readonly IMapper mapper;
         private readonly IProductRepository productRepository;
+        private readonly ICategoryRepository categoryRepository;
         private readonly IAppLogger<CreateProductCommandHandler>  _logger;
 
-        public CreateProductCommandHandler(IMapper mapper, IProductRepository productRepository, IAppLogger<CreateProductCommandHandler> logger)
+        public CreateProductCommandHandler(IMapper mapper, IProductRepository productRepository, ICategoryRepository categoryRepository, IAppLogger<CreateProductCommandHandler> logger)
         {
             this.mapper=mapper;
             this.productRepository=productRepository;
+            this.categoryRepository=categoryRepository;
             _logger=logger;
         }
         public async Task<int> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var validator = new CreateProductCommandValidator(productRepository);
+            var validator = new CreateProductCommandValidator(productRepository, categoryRepository);
             var validationResult = await validator.ValidateAsync(request);
 
             if (validationResult.Errors.Any())

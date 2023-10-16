@@ -63,8 +63,6 @@ namespace Blazor.Application.Repository
                 objFromDb.ImageUrl = objDTO.ImageUrl;
                 objFromDb.CategoryId = objDTO.CategoryId;
                 objFromDb.Color = objDTO.Color;
-                objFromDb.ShopFavorites = objDTO.ShopFavorites;
-                objFromDb.CustomerFavorites = objDTO.CustomerFavorites;
                 _db.Products.Update(objFromDb);
                 await _db.SaveChangesAsync();
                 return _mapper.Map<Product, ProductDTO>(objFromDb);

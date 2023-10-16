@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 
 namespace Blazor.Application.Features.Categories.Queries.GetCategoryDetails;
 
-    public record GetLeaveTypeDetailsQuery(int Id) : IRequest<CategoryDTO>;
+    public record GetCategoryDetailsQuery(int Id) : IRequest<CategoryDTO>;
 

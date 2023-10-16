@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Blazor.Application.DTOs;
+using Blazor.Application.Features.Categories.Commands.UpdateCategory;
 using Blazor.Application.Features.Products.Commands.CreateProductCommand;
 using Blazor.Application.Features.Products.Queries;
 using Blazor.Domain.Entities;
@@ -19,5 +20,6 @@ public class CategoryProfile : Profile
     {
         CreateMap<Category, CategoryDTO>().ReverseMap();
         CreateMap<CreateCategoryCommand, CategoryDTO>();
+        CreateMap<UpdateCategoryCommand, CategoryDTO>();
     }
 }

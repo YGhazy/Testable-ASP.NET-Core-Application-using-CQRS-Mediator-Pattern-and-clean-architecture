@@ -50,28 +50,5 @@ public class ProductsController : ControllerBase
         return CreatedAtAction(nameof(Get), new { id = response });
     }
 
-    //// PUT api/<ProductsController>
-    //[HttpPut("{id}")]
-    //[ProducesResponseType(StatusCodes.Status204NoContent)]
-    //[ProducesResponseType(400)]
-    //[ProducesResponseType(StatusCodes.Status404NotFound)]
-    //[ProducesDefaultResponseType]
-    //public async Task<ActionResult> Put(UpdateProductCommand product)
-    //{
-    //    await _mediator.Send(product);
-    //    return NoContent();
-    //}
-
-    //// DELETE api/<ProductsController>/5
-    //[HttpDelete("{id}")]
-    //[ProducesResponseType(StatusCodes.Status204NoContent)]
-    //[ProducesResponseType(StatusCodes.Status404NotFound)]
-    //[ProducesDefaultResponseType]
-    //public async Task<ActionResult> Delete(int id)
-    //{
-    //    var command = new DeleteProductCommand { Id = id };
-    //    await _mediator.Send(command);
-    //    return NoContent();
-    //}
 }
 
