@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Blazor.Domain.Entities
 {
-    public class Product
+    public class Product: BaseEntity
     {
         [Key]
         public int Id { get; set; }

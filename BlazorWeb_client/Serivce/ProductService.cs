@@ -2,6 +2,7 @@
 using BlazorWeb_Client.Serivce.IService;
 using Blazor.Application.DTOs;
 using Blazor.Application.Common;
+using Blazor.Application.Features.Products.Queries;
 
 namespace BlazorWeb_Client.Serivce
 {

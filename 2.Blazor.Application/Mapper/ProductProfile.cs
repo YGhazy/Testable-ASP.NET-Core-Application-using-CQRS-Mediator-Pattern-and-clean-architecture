@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Blazor.Application.Mapper;
 
-internal class ProductProfile : Profile
+public class ProductProfile : Profile
 {
     public ProductProfile()
     {

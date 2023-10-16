@@ -1,4 +1,5 @@
 ﻿using Blazor.Application.DTOs;
+using Features.Categories.Queries.GetCategories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Blazor.Application.Features.Products.Queries;
 
-    public class ProductDTO
+public class ProductDTO
     {
         public int Id { get; set; }
         [Required]

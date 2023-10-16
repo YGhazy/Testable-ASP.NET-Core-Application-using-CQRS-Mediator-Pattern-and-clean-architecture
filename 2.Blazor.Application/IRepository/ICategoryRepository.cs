@@ -1,4 +1,5 @@
 ﻿using Blazor.Application.DTOs;
+using Features.Categories.Queries.GetCategories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace Blazor.Application.IRepository
         public Task<int> Delete(int id);
         public Task<CategoryDTO> Get(int id);
         public Task<IEnumerable<CategoryDTO>> GetAll();
+        Task<bool> IsCategoryUnique(string name);
     }
 }

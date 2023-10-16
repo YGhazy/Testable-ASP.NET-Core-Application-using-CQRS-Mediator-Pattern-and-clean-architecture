@@ -1,4 +1,5 @@
 ﻿@page "/product/price/{Id:int}"
+@using Blazor.Application.Features.Products.Queries;
 @inject IProductRepository _productRepository
 @inject IProductPriceRepository _productPriceRepository
 @attribute [Authorize]

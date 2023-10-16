@@ -1,6 +1,7 @@
 ﻿
 
 using Blazor.Application.DTOs;
+using Blazor.Application.Features.Products.Queries;
 
 namespace BlazorWeb_Client.ViewModels
 {

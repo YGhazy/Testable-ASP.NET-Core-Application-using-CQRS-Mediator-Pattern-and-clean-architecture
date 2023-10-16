@@ -14,13 +14,11 @@ namespace Blazor.Application.Features.Products.Queries.GetProductDetails
     public class GetProductDetailsQueryHandler : IRequestHandler<GetProductDetailsQuery, ProductDTO>
     {
         private readonly IMapper mapper;
-        private readonly IUnitOfWork unitOfWork;
         private readonly IProductRepository productRepository;
 
-        public GetProductDetailsQueryHandler(IMapper mapper, IUnitOfWork unitOfWork, IProductRepository productRepository)
+        public GetProductDetailsQueryHandler(IMapper mapper, IProductRepository productRepository)
         {
             this.mapper=mapper;
-            this.unitOfWork=unitOfWork;
             this.productRepository=productRepository;
         }
         public async Task<ProductDTO> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)

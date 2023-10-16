@@ -3,7 +3,9 @@ using Blazor.Application.DTOs;
 using Blazor.Application.IRepository;
 using Blazor.Domain.Entities;
 using Blazor.Infrastructure.Data;
+using Features.Categories.Queries.GetCategories;
 using Microsoft.EntityFrameworkCore;
+using SendGrid.Helpers.Mail;
 
 namespace Blazor.Application.Repository
 {
@@ -21,7 +23,6 @@ namespace Blazor.Application.Repository
         public async Task<CategoryDTO> Create(CategoryDTO objDTO)
         {
             var obj = _mapper.Map<CategoryDTO, Category>(objDTO);
-            obj.CreatedDate = DateTime.Now;
             var addedObj = _db.Categories.Add(obj);
             await _db.SaveChangesAsync();
 
@@ -66,6 +67,11 @@ namespace Blazor.Application.Repository
             }
             return objDTO;
 
+        }
+
+        public async Task<bool> IsCategoryUnique(string name)
+        {
+            return await _db.Categories.AnyAsync(q => q.Name == name) == false;
         }
     }
 }

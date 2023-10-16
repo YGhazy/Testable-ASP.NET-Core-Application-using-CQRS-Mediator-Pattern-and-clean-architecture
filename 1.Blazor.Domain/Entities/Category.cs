@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace Blazor.Domain.Entities
 {
-    public class Category
+    public class Category: BaseEntity
     {
-        [Key] //data annotation
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
     }
 }

@@ -18,7 +18,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             {
                 Id = 1,
                 Name = "Flowers",
-                CreatedDate=DateTime.UtcNow
+                Description="Flowers"
             }
         );
 

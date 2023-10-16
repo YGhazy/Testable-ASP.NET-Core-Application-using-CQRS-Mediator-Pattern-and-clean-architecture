@@ -19,11 +19,18 @@ using Blazor.Application.Helper;
 using MediatR;
 using System.Reflection;
 using Blazor.Application;
+using Serilog;
+using Blazor.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Host.UseSerilog((context, loggerConfig) => loggerConfig
+    .WriteTo.Console()
+    .ReadFrom.Configuration(context.Configuration));
 builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -54,8 +61,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddDefaultTokenProviders()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 var apiSettingsSection = builder.Configuration.GetSection("APISettings");
 builder.Services.Configure<APISettings>(apiSettingsSection);
@@ -89,23 +96,19 @@ builder.Services.AddAuthentication(opt =>
 
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IProductPriceRepository, ProductPriceRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAccountService, Blazor.Application.Services.AccountService>();
-builder.Services.AddScoped<IStripePaymentService, StripePaymentService>();
-builder.Services.AddScoped<IProductService, Blazor.Application.Services.ProductService>();
+//builder.Services.AddScoped<IProductService, Blazor.Application.Services.ProductService>();
 builder.Services.AddCors(o => o.AddPolicy("CustomCors", builder =>
 {
     builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
 var app = builder.Build();
 
-
-StripeConfiguration.ApiKey=builder.Configuration.GetSection("Stripe")["ApiKey"];
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 
@@ -123,6 +126,7 @@ else
     app.UseSwaggerUI(c => {
     });
 }
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 app.UseCors("CustomCors");
