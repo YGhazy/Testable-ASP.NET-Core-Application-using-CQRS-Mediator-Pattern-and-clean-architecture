@@ -29,4 +29,8 @@
     <ProjectReference Include="..\3.Blazor.Infrastructure\3.Blazor.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Categories\Queries\" />
+  </ItemGroup>
+
 </Project>

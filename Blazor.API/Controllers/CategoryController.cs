@@ -64,7 +64,7 @@ public class CategoryController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<ActionResult> Delete(int id)
     {
-        var command = new DeleteCategoryCommand { Id = id };
+        var command = new DeleteCategoryCommand(id );
         await _mediator.Send(command);
         return NoContent();
     }

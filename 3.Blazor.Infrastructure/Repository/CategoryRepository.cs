@@ -20,13 +20,12 @@ namespace Blazor.Application.Repository
             _mapper = mapper;
         }
 
-        public async Task<CategoryDTO> Create(CategoryDTO objDTO)
+        public async Task Create(CategoryDTO objDTO)
         {
             var obj = _mapper.Map<CategoryDTO, Category>(objDTO);
             var addedObj = _db.Categories.Add(obj);
             await _db.SaveChangesAsync();
 
-            return _mapper.Map<Category, CategoryDTO>(addedObj.Entity);
         }
 
         public async Task<int> Delete(int id)

@@ -1,13 +1,7 @@
 ﻿using AutoMapper;
-using Blazor.Application.Common;
+using Blazor.Application.Exceptions;
 using Blazor.Application.IRepository;
-using Blazor.Domain.Common;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Blazor.Application.Features.Products.Queries.GetProductDetails
 {
@@ -25,7 +19,8 @@ namespace Blazor.Application.Features.Products.Queries.GetProductDetails
         {
 
             var product = await productRepository.Get(request.ID);
-
+            if (product.Id == 0)
+                throw new NotFoundException(nameof(product), request.ID);
             return product; 
         }
     }

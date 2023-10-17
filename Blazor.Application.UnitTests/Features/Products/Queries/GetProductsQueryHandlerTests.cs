@@ -33,6 +33,8 @@ namespace Blazor.Application.UnitTests.Features.Products.Queries
         }
 
         [Fact]
+        [Trait("Product", "GetProducts")]
+
         public async Task GetProductListTest()
         {
 
@@ -41,7 +43,7 @@ namespace Blazor.Application.UnitTests.Features.Products.Queries
 
             result.ShouldBeOfType<List<ProductDTO>>();
 
-            result.Count.ShouldBe(4);
+            result.Count.ShouldBe(3);
         }
     }
 }

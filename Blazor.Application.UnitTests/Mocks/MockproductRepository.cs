@@ -21,39 +21,40 @@ public class MockProductRepository
     }
     public static Mock<IProductRepository> GetMockProductsRepository()
     {
-        var Products = new List<Product>
+        var mapperConfig = new MapperConfiguration(c =>
+        {
+            c.AddProfile<ProductProfile>();
+        });
+        IMapper _mapper = mapperConfig.CreateMapper();
+     
+        var Products = new List<ProductDTO>
             {
-                new Product
+                new ProductDTO
                 {
                     Id = 1,
                     Name = "Test Vacation"
                 },
-                new Product
+                new ProductDTO
                 {
                     Id = 2,
                     Name = "Test Sick"
                 },
-                new Product
+                new ProductDTO
                 {
                     Id = 3,
                     Name = "Test Maternity"
                 }
             };
 
-        var mapperConfig = new MapperConfiguration(c =>
-        {
-            c.AddProfile<ProductProfile>();
-        });
-        IMapper _mapper = mapperConfig.CreateMapper();
         var mockRepo = new Mock<IProductRepository>();
 
-        mockRepo.Setup(r => r.GetAll()).ReturnsAsync(_mapper.Map<IEnumerable<ProductDTO>>(Products));
+        mockRepo.Setup(r => r.GetAll()).ReturnsAsync(Products);
 
         mockRepo.Setup(r => r.Create(It.IsAny<ProductDTO>()))
             .Returns((ProductDTO prod) =>
             {
-                Products.Add(_mapper.Map<Product>(prod));
-                return Task.FromResult(prod);
+                Products.Add(prod);
+                return Task.FromResult( prod);
             });
 
         mockRepo.Setup(r => r.IsProductUnique(It.IsAny<string>()))

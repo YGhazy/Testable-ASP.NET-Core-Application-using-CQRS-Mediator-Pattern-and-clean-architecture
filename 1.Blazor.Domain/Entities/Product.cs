@@ -16,7 +16,7 @@ namespace Blazor.Domain.Entities
         public string ImageUrl { get; set; }
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
-        public Category Category { get; set; }
-        public ICollection<ProductPrice> ProductPrices { get; set; }
+        public Category? Category { get; set; }
+        public ICollection<ProductPrice>? ProductPrices { get; set; }
     }
 }

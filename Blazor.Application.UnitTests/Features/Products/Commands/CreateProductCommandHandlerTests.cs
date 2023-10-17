@@ -17,15 +17,19 @@ using System.Threading.Tasks;
 
 namespace Blazor.Application.UnitTests.Features.Products.Commands;
 
+
+
 public class CreateProductCommandHandlerTests
 {
     private readonly Mock<IProductRepository> _mockProductRepository;
+    private readonly Mock<ICategoryRepository> _mockCategoryRepository;
     private IMapper _mapper;
     private Mock<IAppLogger<CreateProductCommandHandler>> _mockAppLogger;
 
     public CreateProductCommandHandlerTests()
     {
         _mockProductRepository=MockProductRepository.GetMockProductsRepository();
+        _mockCategoryRepository=MockCategoryRepository.GetMockCategoriesRepository();
         var mapperConfig = new MapperConfiguration(c =>
         {
             c.AddProfile<ProductProfile>();
@@ -36,30 +40,42 @@ public class CreateProductCommandHandlerTests
     }
 
     [Theory]
-    [InlineData("Test", "Description", "red",0)]
-    [InlineData("Test", "descriptionn", null, 9)]
-    [InlineData(null, null, "white", 1)]
-    [InlineData(null, null, "black", 8)]
+    [Trait("Product","create")]
+    [InlineData("Test", "Description", "red", 2)]
+    [InlineData("Test", "Description", "red", 0)]
+    [InlineData("Test", "descriptionn", null, 1)]
+    [InlineData(null, null, "white", 2)]
+    [InlineData(null, null, "black", 2)]
     [InlineData(null, null, "", 2)]
     public async Task CreateProductTest(string name, string description, string Color, int CategoryId)
     {
-        var handler = new CreateProductCommandHandler(_mapper, _mockProductRepository.Object, _mockAppLogger.Object);
-        var result = await handler.Handle(new CreateProductCommand(), CancellationToken.None);
+        var handler = new CreateProductCommandHandler(_mapper, _mockProductRepository.Object, _mockCategoryRepository.Object, _mockAppLogger.Object);
+        var result = await handler.Handle(new CreateProductCommand()
+        {
+            Name =name,
+            Description = description,
+            Color=Color,
+            CategoryId=CategoryId,
+        }, CancellationToken.None);
 
-        result.ShouldBeOfType<ProductDTO>();
-
+        var products = await _mockProductRepository.Object.GetAll();
+        products.ToList().Count.ShouldBe(4);
     }
 
 
     [Fact]
+    [Trait("Product", "create")]
     public async Task Handle_ValidProduct()
     {
-        var handler = new CreateProductCommandHandler(_mapper, _mockProductRepository.Object, _mockAppLogger.Object);
+        var handler = new CreateProductCommandHandler(_mapper, _mockProductRepository.Object, _mockCategoryRepository.Object, _mockAppLogger.Object);
 
         await handler.Handle(new CreateProductCommand()
         {
             Name = "Test1",
-            Description = "descriptionn"
+            Description = "descriptionn",
+            Color="red",
+            CategoryId=2,
+            ImageUrl=""
         }, CancellationToken.None);
 
         var products = await _mockProductRepository.Object.GetAll();

@@ -7,7 +7,4 @@ using System.Threading.Tasks;
 
 namespace Blazor.Application.Features.Categories.Commands.DeleteCategory;
 
-public class DeleteCategoryCommand : IRequest<Unit> //return void
-{
-    public int Id { get; set; }
-}
+public record DeleteCategoryCommand(int Id) : IRequest<Unit>; //return void
